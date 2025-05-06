@@ -22,6 +22,12 @@ const posts = {};
 
 app.get('/posts', (req, res) => {});
 
+app.post('/events', (req, res) => {
+  console.log('Received Event in query: ', req.body.type);
+
+  res.send({});
+});
+
 app.listen(4002, () => {
   console.log('Listening on 4002...');
 });
