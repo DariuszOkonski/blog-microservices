@@ -13,17 +13,36 @@ const posts = {};
  *  'j1232': {
  *    id: 'j1232',
  *    title: 'post 1'
- *
+ *    comments: [
+ *      { id: 'ksjfdl', content: 'comment' },
+ *      { id: 'sfdsdd', content: 'other comment' }
+ *    ]
  *  }
  * }
  *
  *
  */
 
-app.get('/posts', (req, res) => {});
+app.get('/posts', (req, res) => {
+  res.send(posts);
+});
 
 app.post('/events', (req, res) => {
-  console.log('Received Event in query: ', req.body.type);
+  const { type, data } = req.body;
+
+  if (type === 'PostCreated') {
+    const { id, title } = data;
+    posts[id] = { id, title, comments: [] };
+  }
+
+  if (type === 'CommentCreated') {
+    const { id, content, postId } = data;
+
+    const post = posts[postId];
+    post.comments.push({ id, content });
+  }
+
+  console.log(posts);
 
   res.send({});
 });
