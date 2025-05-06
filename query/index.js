@@ -22,10 +22,6 @@ const posts = {};
 
 app.get('/posts', (req, res) => {});
 
-// app.post('/events', (req, res) => {
-//   res.send('Ok from query-service');
-// });
-
 app.listen(4002, () => {
   console.log('Listening on 4002...');
 });
