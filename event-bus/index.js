@@ -22,6 +22,10 @@ app.post('/events', (req, res) => {
     .post('http://localhost:4002/events', event)
     .catch((err) => console.log(err.message)); // query
 
+  axios
+    .post('http://localhost:4003/events', event)
+    .catch((err) => console.log(err.message)); // moderation
+
   res.send({ status: 'OK' });
 });
 
