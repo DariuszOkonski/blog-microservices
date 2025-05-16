@@ -2,14 +2,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+const events = [];
+
 const app = express();
 app.use(bodyParser.json());
 
 app.post('/events', (req, res) => {
   const event = req.body;
 
-  console.group('Event-Bus');
+  events.push(event);
+
+  console.group('--- Event-Bus ---');
   console.log('event: ', event);
+  console.log('events.length: ', events.length)
+  console.log('-----------------')
   console.groupEnd();
 
   axios
@@ -28,6 +34,10 @@ app.post('/events', (req, res) => {
 
   res.send({ status: 'OK' });
 });
+
+app.get('/events', (req, res) => {
+  res.send(events);
+})
 
 app.listen(4005, () => {
   console.log('Listening on 4005...');
